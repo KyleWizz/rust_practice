@@ -43,7 +43,7 @@ pub fn guessing_game() {
             println!("Please input Y or N");
             guess = String::new();
         }
-        // fix 4: tells them the answer
+
     }
 
 
