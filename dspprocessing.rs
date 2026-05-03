@@ -6,6 +6,8 @@ use dasp::slice::ToFrameSliceMut;
 //added a few other stuff
 
 //lets create some audio waves
+
+//SIN variant other file is cos
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     //get audio dev on sys for wav etc
     let wav_spec = hound::WavSpec {
