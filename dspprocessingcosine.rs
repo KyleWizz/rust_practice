@@ -14,7 +14,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         bits_per_sample: 16, //i16
         sample_format: hound::SampleFormat::Int,
     };
-    let mut writer = hound::WavWriter::create("sampsin.wav", wav_spec).unwrap();
+    let mut writer = hound::WavWriter::create("sampcos.wav", wav_spec).unwrap();
     //init CPAL
     let host = cpal::default_host();
     //could use devices
@@ -26,11 +26,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let total_samples = 5 * wav_spec.sample_rate;
     for i in 0..total_samples {
         let t = i as f32 / wav_spec.sample_rate as f32;
-        let sample =  (i16::MAX as f32 * 0.5 * (std::f32::consts::TAU * 440.0 * t).sin()) as i16;
+        let sample =  (i16::MAX as f32 * 0.5 * (std::f32::consts::TAU * 440.0 * t).cos()) as i16;
         writer.write_sample(sample).unwrap();
     }
     writer.finalize().unwrap();
-    let reader = hound::WavReader::open(("sampsin.wav")).unwrap();
+    let reader = hound::WavReader::open(("sampcos.wav")).unwrap();
 
     let spec = reader.spec();
     let samples = reader.into_samples::<i16>().filter_map(Result::ok);
@@ -54,7 +54,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             match frames.next() {
                 Some(frame) => *out_frame = frame,
                 None => {
-                    // complete_tx.try_send(()).unwrap();
                     complete_tx.try_send(()).ok();
                     *out_frame = dasp::Frame::EQUILIBRIUM;
                 }

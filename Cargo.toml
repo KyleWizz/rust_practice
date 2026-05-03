@@ -17,5 +17,11 @@ name = "untitled"
 path = "main.rs"
 
 [[bin]]
-name = "dsp"
+name = "dspsin"
 path = "dspprocessing.rs"
+
+
+[[bin]]
+name = "dspcos"
+path = "dspprocessingcosine.rs"
+
