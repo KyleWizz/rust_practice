@@ -15,13 +15,14 @@ fn main() {
     //process our buffer- writes the frequency data back into the same buffer
     //each slot will represent a frequency bin
     fft.process(&mut buffer);
+    //freq hertz
     let sample_rate = 44100.0f32;
     //mag = sqr re^2 + im^2
     for i in 0..buffer.len(){
+        //we wanna get freq and magnitude here - div sample rate at i by buffer len for
+        //44100 samples
         let frequency_hertz= i as f32 * sample_rate / buffer.len() as f32;
         let magnitude = ((buffer[i].re * buffer[i].re) + (buffer[i].im * buffer[i].im)).sqrt();
         println!("frequency: {} magnitude: {}", frequency_hertz, magnitude);
     }
-
-
 }
